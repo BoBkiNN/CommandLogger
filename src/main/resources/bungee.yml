@@ -1,0 +1,5 @@
+name: CommandLogger
+version: '${project.version}'
+main: xyz.bobkinn_.commandlogger.CommandLogger
+description: Command Logger
+author: BoBkiNN_

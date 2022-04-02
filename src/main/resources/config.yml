@@ -1,0 +1,2 @@
+msg: '%player% executed %cmd%'
+hiddenCmds: ["/l", "/login", "/log"]
