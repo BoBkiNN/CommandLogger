@@ -47,7 +47,7 @@ public final class CommandLogger extends Plugin implements Listener {
         }
 
         if (!configuration.contains("msg")) {
-            configuration.set("msg","&b%player%&r executed &e%cmd%");
+            configuration.set("msg","&a[%server%] &b%player%&r executed &e%cmd%");
         }
         if (!configuration.contains("hiddenCmds")){
             List<String> defList = new ArrayList<>();
@@ -78,9 +78,10 @@ public final class CommandLogger extends Plugin implements Listener {
         String msg = e.getMessage();
         ProxiedPlayer p = (ProxiedPlayer)e.getSender();
         String nick = p.getName();
+        String sName = p.getServer().getInfo().getName();
         String omsg = configuration.getString("msg");
         List<String> hiddenCmds = configuration.getStringList("hiddenCmds");
-        String dmsg = omsg.replace("%player%",nick).replace("%cmd%",msg).replace("&","§");
+        String dmsg = omsg.replace("%player%",nick).replace("%cmd%",msg).replace("&","§").replace("%server%",sName);
         dmsg = dmsg + "§r";
         //String dmsg = "§b"+nick+"§r executed: "+"§e"+ msg;
 

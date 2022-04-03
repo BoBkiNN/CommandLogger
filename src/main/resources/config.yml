@@ -1,2 +1,2 @@
-msg: '%player% executed %cmd%'
+msg: '&a[%server%] %player% executed %cmd%'
 hiddenCmds: ["/l", "/login", "/log"]

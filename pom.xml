@@ -6,7 +6,7 @@
 
     <groupId>xyz.bobkinn_</groupId>
     <artifactId>commandlogger</artifactId>
-    <version>1.0-build21</version>
+    <version>1.1-build22</version>
     <packaging>jar</packaging>
 
     <name>Commandlogger</name>
