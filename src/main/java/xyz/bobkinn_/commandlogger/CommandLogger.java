@@ -49,6 +49,11 @@ public final class CommandLogger extends Plugin implements Listener {
         if (!configuration.contains("msg")) {
             configuration.set("msg","&a[%server%] &b%player%&r executed &e%cmd%");
         }
+
+        if (!configuration.contains("reloadMsg")) {
+            configuration.set("reloadMsg","&aConfig reloaded!");
+        }
+
         if (!configuration.contains("hiddenCmds")){
             String[] defList = {"/l ","/log ","/login ","/reg","/changepass","/cp","/tell ","/msg ","/pm","/pmsg","/w","/m","/whisper"};
             configuration.set("hiddenCmds", defList);

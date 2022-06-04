@@ -13,4 +13,4 @@ hiddenCmds:
   - '/pmsg'
   - '/whisper'
   - '/m'
-reloadMsg: "Config reloaded!"
+reloadMsg: "&aConfig reloaded!"
