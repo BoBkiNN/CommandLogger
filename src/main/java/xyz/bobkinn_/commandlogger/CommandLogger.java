@@ -47,10 +47,12 @@ public final class CommandLogger extends Plugin implements Listener {
         getLogger().info("Plugin disabled!");
     }
 
-    Configuration configuration = configEngine.getConfiguration();
+
 
     @EventHandler
     public void cmdListener(ChatEvent e){
+        new configEngine(getDataFolder());
+        Configuration configuration = configEngine.getConfiguration();
         String msg = e.getMessage();
         ProxiedPlayer p = (ProxiedPlayer)e.getSender();
         String nick = p.getName();

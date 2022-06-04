@@ -9,7 +9,7 @@ hiddenCmds:
   - '/tell'
   - '/msg'
   - '/pm'
-  - '/w'
+  - '/w '
   - '/pmsg'
   - '/whisper'
   - '/m'

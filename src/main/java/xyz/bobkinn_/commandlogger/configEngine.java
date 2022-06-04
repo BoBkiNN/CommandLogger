@@ -22,8 +22,15 @@ public class configEngine {
     }
 
     public static Configuration getConfiguration(){
+        if (configuration == null){
+            try {
+                configLoad();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         return configuration;
-    };
+    }
 
     public static void configLoad() throws IOException {
 
@@ -47,7 +54,7 @@ public class configEngine {
         }
 
         if (!configuration.contains("hiddenCmds")){
-            String[] defList = {"/l ","/log ","/login ","/reg","/changepass","/cp","/tell ","/msg ","/pm","/pmsg","/w","/m","/whisper"};
+            String[] defList = {"/l ","/log ","/login ","/reg","/changepass","/cp","/tell ","/msg ","/pm","/pmsg","/w ","/m","/whisper"};
             configuration.set("hiddenCmds", defList);
 
             try {
