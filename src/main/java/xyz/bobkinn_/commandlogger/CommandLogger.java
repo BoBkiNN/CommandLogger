@@ -1,5 +1,6 @@
 package xyz.bobkinn_.commandlogger;
 
+import net.md_5.bungee.api.event.ProxyReloadEvent;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
@@ -45,6 +46,20 @@ public final class CommandLogger extends Plugin implements Listener {
     public void onDisable() {
         // Plugin shutdown logic
         getLogger().info("Plugin disabled!");
+    }
+
+    @EventHandler
+    public void rlListener(ProxyReloadEvent e){
+        new configEngine(getDataFolder());
+        try {
+            configEngine.configLoad();
+            Configuration configuration = configEngine.getConfiguration();
+            String reloadMsg = configuration.getString("reloadMsg").replace("&","§");
+            getLogger().info(reloadMsg);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            getLogger().warning("Reload error occurred see stacktrace upper");
+        }
     }
 
 
