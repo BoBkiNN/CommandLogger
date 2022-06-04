@@ -4,12 +4,11 @@ import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.plugin.Command;
-import net.md_5.bungee.config.ConfigurationProvider;
-import net.md_5.bungee.config.YamlConfiguration;
-
+import net.md_5.bungee.config.Configuration;
 import java.io.IOException;
 
 public class cmdReload extends Command{
+
 
     public cmdReload(String name, String permission, String... aliases) {
         super(name, permission, aliases);
@@ -18,8 +17,11 @@ public class cmdReload extends Command{
     @Override
     public void execute(CommandSender sender, String[] args) {
         try {
-            CommandLogger.configuration = ConfigurationProvider.getProvider(YamlConfiguration.class).load(CommandLogger.configFile);
-            String reloadMsg = CommandLogger.configuration.getString("reloadMsg").replace("&","§");
+
+            configEngine.configLoad();
+            Configuration configuration = configEngine.getConfiguration();
+
+            String reloadMsg = configuration.getString("reloadMsg").replace("&","§");
             sender.sendMessage(reloadMsg);
         } catch (IOException e) {
             e.printStackTrace();

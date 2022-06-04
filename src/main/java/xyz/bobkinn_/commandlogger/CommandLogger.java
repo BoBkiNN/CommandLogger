@@ -11,60 +11,34 @@ import net.md_5.bungee.api.plugin.Listener;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 
 public final class CommandLogger extends Plugin implements Listener {
 
     public static File configFile;
-    public static Configuration configuration;
+    public static String configFilePath;
+    public File dataFolder = getDataFolder();
+
 
     @Override
     public void onEnable() {
         getLogger().info("Enabling...");
         getProxy().getPluginManager().registerListener(this, this);
         getProxy().getPluginManager().registerCommand(this, new cmdReload("commandloggerreload","commandlogger.reload", "clreload", "clr"));
-
-        configLoad();
-        getLogger().info("Plugin enabled!");
-    }
-
-    private void configLoad() {
-        if(!getDataFolder().exists()){
-            getDataFolder().mkdir();
-        }
-
-        configFile = new File(getDataFolder(), "config.yml");
-
+        new configEngine(getDataFolder());
+        setconfigFilePath();
         try {
-            if(!configFile.exists()) {
-                configFile.createNewFile();
-            }
-            configuration = ConfigurationProvider.getProvider(YamlConfiguration.class).load(configFile);
+            configEngine.configLoad();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        configEngine.setDataFolder(getDataFolder());
+        getLogger().info("Plugin enabled!");
+    }
 
-        if (!configuration.contains("msg")) {
-            configuration.set("msg","&a[%server%] &b%player%&r executed &e%cmd%");
-        }
-
-        if (!configuration.contains("reloadMsg")) {
-            configuration.set("reloadMsg","&aConfig reloaded!");
-        }
-
-        if (!configuration.contains("hiddenCmds")){
-            String[] defList = {"/l ","/log ","/login ","/reg","/changepass","/cp","/tell ","/msg ","/pm","/pmsg","/w","/m","/whisper"};
-            configuration.set("hiddenCmds", defList);
-
-            try {
-                ConfigurationProvider.getProvider(YamlConfiguration.class).save(configuration, configFile);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
+    private void setconfigFilePath() {
+        configFilePath = new File(getDataFolder()+"config.yml").getAbsolutePath();
     }
 
     @Override
@@ -73,7 +47,7 @@ public final class CommandLogger extends Plugin implements Listener {
         getLogger().info("Plugin disabled!");
     }
 
-
+    Configuration configuration = configEngine.getConfiguration();
 
     @EventHandler
     public void cmdListener(ChatEvent e){
