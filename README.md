@@ -7,6 +7,7 @@ BungeeCord plugin for logging commands
 ## config.yml
 ```yaml
 msg: '&a[%server%] %player% executed %cmd%'
+reloadMsg: "&aConfig reloaded!"
 hiddenCmds:
   - '/l '
   - '/log '
@@ -14,12 +15,11 @@ hiddenCmds:
   - '/reg'
   - '/changepass'
   - '/cp'
-  - '/tell'
+  - '/tell '
   - '/msg'
   - '/pm'
-  - '/w'
+  - '/w '
   - '/pmsg'
   - '/whisper'
   - '/m'
-reloadMsg: "&aConfig reloaded!"
 ```
