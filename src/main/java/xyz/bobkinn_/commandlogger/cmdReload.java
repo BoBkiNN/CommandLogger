@@ -17,10 +17,10 @@ public class cmdReload extends Command{
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        String reloadMsg = CommandLogger.configuration.getString("reloadMsg").replace("&","§");
         try {
-            ConfigurationProvider.getProvider(YamlConfiguration.class).load(CommandLogger.configFile);
-            sender.sendMessage(new ComponentBuilder (reloadMsg).create());
+            CommandLogger.configuration = ConfigurationProvider.getProvider(YamlConfiguration.class).load(CommandLogger.configFile);
+            String reloadMsg = CommandLogger.configuration.getString("reloadMsg").replace("&","§");
+            sender.sendMessage(reloadMsg);
         } catch (IOException e) {
             e.printStackTrace();
             sender.sendMessage(new ComponentBuilder("Error occurred, check console for details").color(ChatColor.RED).create());
