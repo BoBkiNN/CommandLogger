@@ -24,7 +24,7 @@ public final class CommandLogger extends Plugin implements Listener {
     public void onEnable() {
         getLogger().info("Enabling...");
         getProxy().getPluginManager().registerListener(this, this);
-        getProxy().registerChannel("cmdlogger:logger");
+        getProxy().getPluginManager().registerCommand(this, new cmdReload("commandloggerreload","commandlogger.reload", "clreload", "clr"));
 
         configLoad();
         getLogger().info("Plugin enabled!");
@@ -50,10 +50,7 @@ public final class CommandLogger extends Plugin implements Listener {
             configuration.set("msg","&a[%server%] &b%player%&r executed &e%cmd%");
         }
         if (!configuration.contains("hiddenCmds")){
-            List<String> defList = new ArrayList<>();
-            defList.add("/l ");
-            defList.add("/log ");
-            defList.add("/login ");
+            String[] defList = {"/l ","/log ","/login ","/reg","/changepass","/cp","/tell ","/msg ","/pm","/pmsg","/w","/m","/whisper"};
             configuration.set("hiddenCmds", defList);
 
             try {
@@ -83,7 +80,6 @@ public final class CommandLogger extends Plugin implements Listener {
         List<String> hiddenCmds = configuration.getStringList("hiddenCmds");
         String dmsg = omsg.replace("%player%",nick).replace("%cmd%",msg).replace("&","§").replace("%server%",sName);
         dmsg = dmsg + "§r";
-        //String dmsg = "§b"+nick+"§r executed: "+"§e"+ msg;
 
         boolean showmsg = true;
         if(msg.startsWith("/")){

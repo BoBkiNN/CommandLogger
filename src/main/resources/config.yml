@@ -1,2 +1,16 @@
 msg: '&a[%server%] %player% executed %cmd%'
-hiddenCmds: ["/l", "/login", "/log"]
+hiddenCmds:
+  - '/l '
+  - '/log '
+  - '/login '
+  - '/reg'
+  - '/changepass'
+  - '/cp'
+  - '/tell'
+  - '/msg'
+  - '/pm'
+  - '/w'
+  - '/pmsg'
+  - '/whisper'
+  - '/m'
+reloadMsg: "Config reloaded!"
