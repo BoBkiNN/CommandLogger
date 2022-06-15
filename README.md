@@ -4,6 +4,8 @@ BungeeCord plugin for logging commands
 - Hidden commands (this commands will be not printed to console)
 - Customizable log message
 - Placholders: %server% for server name; %player% for sender nickname; %cmd% for command that was executed
+## Commands and permissions:
+- `clreload` - reloads config, permission: `commandlogger.reload`
 ## config.yml
 ```yaml
 msg: '&a[%server%] %player% executed %cmd%'
