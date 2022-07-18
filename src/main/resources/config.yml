@@ -2,15 +2,18 @@ msg: '&a[%server%] %player% executed %cmd%'
 hiddenCmds:
   - '/l '
   - '/log '
-  - '/login '
-  - '/reg'
-  - '/changepass'
-  - '/cp'
-  - '/tell'
-  - '/msg'
-  - '/pm'
+  - '/login'
+  - /reg
+  - /changepass
+  - /cp
+  - '/tell '
+  - '/msg '
+  - /pm
+  - /pmsg
   - '/w '
-  - '/pmsg'
-  - '/whisper'
-  - '/m'
+  - /m
+  - /whisper
+  - /LOGIN
+  - '/r '
+ignoreCase: true
 reloadMsg: "&aConfig reloaded!"

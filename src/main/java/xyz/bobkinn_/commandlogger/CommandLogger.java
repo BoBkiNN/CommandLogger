@@ -1,14 +1,13 @@
 package xyz.bobkinn_.commandlogger;
 
-import net.md_5.bungee.api.event.ProxyReloadEvent;
-import net.md_5.bungee.api.plugin.Plugin;
-import net.md_5.bungee.config.Configuration;
-import net.md_5.bungee.config.ConfigurationProvider;
-import net.md_5.bungee.config.YamlConfiguration;
-import net.md_5.bungee.event.EventHandler;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.ChatEvent;
+import net.md_5.bungee.api.event.ProxyReloadEvent;
 import net.md_5.bungee.api.plugin.Listener;
+import net.md_5.bungee.api.plugin.Plugin;
+import net.md_5.bungee.config.Configuration;
+import net.md_5.bungee.event.EventHandler;
+import org.apache.commons.lang.StringUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -53,7 +52,7 @@ public final class CommandLogger extends Plugin implements Listener {
         new configEngine(getDataFolder());
         try {
             configEngine.configLoad();
-            Configuration configuration = configEngine.getConfiguration();
+            Configuration configuration = configEngine.configuration;
             String reloadMsg = configuration.getString("reloadMsg").replace("&","§");
             getLogger().info(reloadMsg);
         } catch (IOException ex) {
@@ -67,7 +66,7 @@ public final class CommandLogger extends Plugin implements Listener {
     @EventHandler
     public void cmdListener(ChatEvent e){
         new configEngine(getDataFolder());
-        Configuration configuration = configEngine.getConfiguration();
+        Configuration configuration = configEngine.configuration;
         String msg = e.getMessage();
         ProxiedPlayer p = (ProxiedPlayer)e.getSender();
         String nick = p.getName();
@@ -80,7 +79,10 @@ public final class CommandLogger extends Plugin implements Listener {
         boolean showmsg = true;
         if(msg.startsWith("/")){
             for (String cmd : hiddenCmds){
-                if (msg.contains(cmd)){
+                if (StringUtils.containsIgnoreCase(msg,cmd) && configuration.getBoolean("ignoreCase")){
+                    showmsg = false;
+                    break;
+                } else if (msg.contains(cmd)){
                     showmsg = false;
                     break;
                 }

@@ -6,10 +6,10 @@
 
     <groupId>xyz.bobkinn_</groupId>
     <artifactId>commandlogger</artifactId>
-    <version>1.2.1-build37</version>
+    <version>1.2.2-build40</version>
     <packaging>jar</packaging>
 
-    <name>Commandlogger</name>
+    <name>CommandLogger</name>
 
     <description>Command Logger</description>
     <properties>
@@ -67,6 +67,11 @@
             <artifactId>bungeecord-api</artifactId>
             <version>1.18-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
         </dependency>
     </dependencies>
 </project>

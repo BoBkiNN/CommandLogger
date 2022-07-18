@@ -21,20 +21,10 @@ public class configEngine {
         dataFolder = df;
     }
 
-    public static Configuration getConfiguration(){
-        if (configuration == null){
-            try {
-                configLoad();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return configuration;
-    }
-
     public static void configLoad() throws IOException {
 
         File configFile = new File(dataFolder,"config.yml");
+        boolean modified = false;
 
         if (!dataFolder.exists()){
             dataFolder.mkdir();
@@ -43,26 +33,37 @@ public class configEngine {
         if(!configFile.exists()) {
             configFile.createNewFile();
         }
+
         configuration = ConfigurationProvider.getProvider(YamlConfiguration.class).load(configFile);
 
         if (!configuration.contains("msg")) {
             configuration.set("msg","&a[%server%] &b%player%&r executed &e%cmd%");
+            modified=true;
         }
 
         if (!configuration.contains("reloadMsg")) {
             configuration.set("reloadMsg","&aConfig reloaded!");
+            modified=true;
         }
 
         if (!configuration.contains("hiddenCmds")){
             String[] defList = {"/l ","/log ","/login ","/reg","/changepass","/cp","/tell ","/msg ","/pm","/pmsg","/w ","/m","/whisper"};
             configuration.set("hiddenCmds", defList);
+            modified=true;
+        }
+        if (!configuration.contains("ignoreCase")){
+            configuration.set("ignoreCase",true);
+            modified=true;
+        }
 
+        if (modified){
             try {
                 ConfigurationProvider.getProvider(YamlConfiguration.class).save(configuration, configFile);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        configuration = ConfigurationProvider.getProvider(YamlConfiguration.class).load(configFile);
 
     }
 
