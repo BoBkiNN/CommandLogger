@@ -9,32 +9,34 @@ import java.io.IOException;
 
 public class configEngine {
 
-    static String configFilePath = CommandLogger.configFilePath;
-    static File dataFolder;
+    static File dataFolder = CommandLogger.plugin.getDataFolder();
     static Configuration configuration;
 
-    public configEngine(File dataFolder){
-        configEngine.dataFolder = dataFolder;
-    }
-
-    public static void setDataFolder(File df){
-        dataFolder = df;
-    }
-
-    public static void configLoad() throws IOException {
-
+    public static void reload(){
         File configFile = new File(dataFolder,"config.yml");
         boolean modified = false;
 
         if (!dataFolder.exists()){
-            dataFolder.mkdir();
+            if (!dataFolder.mkdir()){
+                CommandLogger.logger.severe("Failed to create data folder: "+dataFolder.getAbsolutePath());
+                return;
+            }
         }
 
-        if(!configFile.exists()) {
-            configFile.createNewFile();
+        try {
+            if(!configFile.exists()) {
+                if (!configFile.createNewFile()){
+                    CommandLogger.logger.severe("Failed to create config file");
+                    return;
+                }
+            }
+
+            configuration = ConfigurationProvider.getProvider(YamlConfiguration.class).load(configFile);
+        } catch (IOException e){
+            e.printStackTrace();
+            return;
         }
 
-        configuration = ConfigurationProvider.getProvider(YamlConfiguration.class).load(configFile);
 
         if (!configuration.contains("msg")) {
             configuration.set("msg","&a[%server%] &b%player%&r executed &e%cmd%");
@@ -63,7 +65,11 @@ public class configEngine {
                 e.printStackTrace();
             }
         }
-        configuration = ConfigurationProvider.getProvider(YamlConfiguration.class).load(configFile);
+        try {
+            configuration = ConfigurationProvider.getProvider(YamlConfiguration.class).load(configFile);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
 
     }
 
