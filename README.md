@@ -5,6 +5,7 @@ BungeeCord plugin for logging commands
 - possible to ignore command case or not
 - Customizable log message
 - Placholders: %server% for server name; %player% for sender nickname; %cmd% for command that was executed
+- Option to log messages with plugin preifix or without it
 ## Commands and permissions:
 - `clreload` - reloads config, permission: `commandlogger.reload`
 ## config.yml
@@ -28,4 +29,5 @@ hiddenCmds:
   - '/r '
 ignoreCase: true
 reloadMsg: "&aConfig reloaded!"
+addPrefix: false
 ```
