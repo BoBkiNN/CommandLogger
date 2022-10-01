@@ -27,9 +27,9 @@ public final class CommandLogger extends Plugin implements Listener {
         logger=getLogger();
         getLogger().info("Enabling...");
         configFile = new File(getDataFolder()+"config.yml");
-        configEngine.reload();
+        ConfigEngine.reload();
         getProxy().getPluginManager().registerListener(this, this);
-        getProxy().getPluginManager().registerCommand(this, new cmdReload("commandloggerreload","commandlogger.reload", "clreload", "clr"));
+        getProxy().getPluginManager().registerCommand(this, new CmdReload("commandloggerreload","commandlogger.reload", "clreload", "clr"));
         getLogger().info("Plugin enabled!");
     }
 
@@ -42,8 +42,8 @@ public final class CommandLogger extends Plugin implements Listener {
 
     @EventHandler
     public void rlListener(ProxyReloadEvent e){
-        configEngine.reload();
-        Configuration configuration = configEngine.configuration;
+        ConfigEngine.reload();
+        Configuration configuration = ConfigEngine.configuration;
         String reloadMsg = configuration.getString("reloadMsg").replace("&","§");
         getLogger().info(reloadMsg);
     }
@@ -52,7 +52,7 @@ public final class CommandLogger extends Plugin implements Listener {
 
     @EventHandler
     public void cmdListener(ChatEvent e){
-        Configuration configuration = configEngine.configuration;
+        Configuration configuration = ConfigEngine.configuration;
         String msg = e.getMessage();
         ProxiedPlayer p = (ProxiedPlayer)e.getSender();
         String nick = p.getName();
@@ -76,7 +76,7 @@ public final class CommandLogger extends Plugin implements Listener {
                     break;
                 }
             }
-            if (showmsg) {getLogger().info(ChatColor.translateAlternateColorCodes('&',dMsg));}
+            if (showmsg) {logger.info(ChatColor.translateAlternateColorCodes('&',dMsg));}
         }
     }
 }

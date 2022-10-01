@@ -17,3 +17,4 @@ hiddenCmds:
   - '/r '
 ignoreCase: true
 reloadMsg: "&aConfig reloaded!"
+addPrefix: false

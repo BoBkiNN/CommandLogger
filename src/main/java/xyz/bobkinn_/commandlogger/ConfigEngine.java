@@ -6,8 +6,9 @@ import net.md_5.bungee.config.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Logger;
 
-public class configEngine {
+public class ConfigEngine {
 
     static File dataFolder = CommandLogger.plugin.getDataFolder();
     static Configuration configuration;
@@ -57,6 +58,10 @@ public class configEngine {
             configuration.set("ignoreCase",true);
             modified=true;
         }
+        if (!configuration.contains("addPrefix")){
+            configuration.set("addPrefix",false);
+            modified=true;
+        }
 
         if (modified){
             try {
@@ -70,6 +75,8 @@ public class configEngine {
         } catch (IOException e){
             e.printStackTrace();
         }
+        if (!configuration.getBoolean("addPrefix")) CommandLogger.logger = CommandLogger.plugin.getProxy().getLogger();
+        else CommandLogger.logger = CommandLogger.plugin.getLogger();
 
     }
 
